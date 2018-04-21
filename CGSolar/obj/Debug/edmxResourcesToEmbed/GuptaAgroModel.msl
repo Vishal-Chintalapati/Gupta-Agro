@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="GuptaAgroModelStoreContainer" CdmEntityContainer="GuptaAgroDBContext">
+    <EntitySetMapping Name="tbl_beneficiary">
+      <EntityTypeMapping TypeName="GuptaAgroModel.tbl_beneficiary">
+        <MappingFragment StoreEntitySet="tbl_beneficiary">
+          <ScalarProperty Name="BeneficiaryID" ColumnName="BeneficiaryID" />
+          <ScalarProperty Name="WorkOrderNo" ColumnName="WorkOrderNo" />
+          <ScalarProperty Name="PumpType" ColumnName="PumpType" />
+          <ScalarProperty Name="systemCapacity" ColumnName="systemCapacity" />
+          <ScalarProperty Name="BeneficiaryName" ColumnName="BeneficiaryName" />
+          <ScalarProperty Name="FatherName" ColumnName="FatherName" />
+          <ScalarProperty Name="ContactNo" ColumnName="ContactNo" />
+          <ScalarProperty Name="Village" ColumnName="Village" />
+          <ScalarProperty Name="Block" ColumnName="Block" />
+          <ScalarProperty Name="District" ColumnName="District" />
+          <ScalarProperty Name="Aadhar" ColumnName="Aadhar" />
+          <ScalarProperty Name="Caste" ColumnName="Caste" />
+          <ScalarProperty Name="category" ColumnName="category" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_employee">
+      <EntityTypeMapping TypeName="GuptaAgroModel.tbl_employee">
+        <MappingFragment StoreEntitySet="tbl_employee">
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+          <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+          <ScalarProperty Name="Role" ColumnName="Role" />
+          <ScalarProperty Name="ContactNo" ColumnName="ContactNo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_InventoryStock">
+      <EntityTypeMapping TypeName="GuptaAgroModel.tbl_InventoryStock">
+        <MappingFragment StoreEntitySet="tbl_InventoryStock">
+          <ScalarProperty Name="InventoryID" ColumnName="InventoryID" />
+          <ScalarProperty Name="VendorName" ColumnName="VendorName" />
+          <ScalarProperty Name="Item" ColumnName="Item" />
+          <ScalarProperty Name="quantity" ColumnName="quantity" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="Tax" ColumnName="Tax" />
+          <ScalarProperty Name="BillNo" ColumnName="BillNo" />
+          <ScalarProperty Name="BillDate" ColumnName="BillDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_OandM">
+      <EntityTypeMapping TypeName="GuptaAgroModel.tbl_OandM">
+        <MappingFragment StoreEntitySet="tbl_OandM">
+          <ScalarProperty Name="OandMID" ColumnName="OandMID" />
+          <ScalarProperty Name="WorkOrderID" ColumnName="WorkOrderID" />
+          <ScalarProperty Name="BeneficiaryID" ColumnName="BeneficiaryID" />
+          <ScalarProperty Name="AssignedTo" ColumnName="AssignedTo" />
+          <ScalarProperty Name="AadharNo" ColumnName="AadharNo" />
+          <ScalarProperty Name="ProblemreportedOn" ColumnName="ProblemreportedOn" />
+          <ScalarProperty Name="ProblemType" ColumnName="ProblemType" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="DateOfCompletion" ColumnName="DateOfCompletion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

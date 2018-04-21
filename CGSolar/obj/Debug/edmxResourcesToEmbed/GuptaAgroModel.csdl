@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="GuptaAgroModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="tbl_beneficiary">
+    <Key>
+      <PropertyRef Name="BeneficiaryID" />
+    </Key>
+    <Property Name="BeneficiaryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="WorkOrderNo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="PumpType" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="systemCapacity" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+    <Property Name="BeneficiaryName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="FatherName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ContactNo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Village" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Block" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="District" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Aadhar" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+    <Property Name="Caste" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="category" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="tbl_employee">
+    <Key>
+      <PropertyRef Name="EmployeeID" />
+    </Key>
+    <Property Name="EmployeeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EmployeeName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="Role" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="ContactNo" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="tbl_InventoryStock">
+    <Key>
+      <PropertyRef Name="InventoryID" />
+    </Key>
+    <Property Name="InventoryID" Type="Int64" Nullable="false" />
+    <Property Name="VendorName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="Item" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="quantity" Type="Int32" />
+    <Property Name="Price" Type="Decimal" Precision="10" Scale="8" />
+    <Property Name="Amount" Type="Decimal" Precision="10" Scale="8" />
+    <Property Name="Tax" Type="Decimal" Precision="10" Scale="8" />
+    <Property Name="BillNo" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="BillDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="tbl_OandM">
+    <Key>
+      <PropertyRef Name="OandMID" />
+    </Key>
+    <Property Name="OandMID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="WorkOrderID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="BeneficiaryID" Type="Int32" Nullable="false" />
+    <Property Name="AssignedTo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="AadharNo" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
+    <Property Name="ProblemreportedOn" Type="DateTime" Precision="3" />
+    <Property Name="ProblemType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Status" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="DateOfCompletion" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityContainer Name="GuptaAgroDBContext" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="tbl_beneficiary" EntityType="Self.tbl_beneficiary" />
+    <EntitySet Name="tbl_employee" EntityType="Self.tbl_employee" />
+    <EntitySet Name="tbl_InventoryStock" EntityType="Self.tbl_InventoryStock" />
+    <EntitySet Name="tbl_OandM" EntityType="Self.tbl_OandM" />
+  </EntityContainer>
+</Schema>
