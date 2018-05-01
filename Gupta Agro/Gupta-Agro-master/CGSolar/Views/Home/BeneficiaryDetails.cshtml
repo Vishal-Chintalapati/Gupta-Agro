@@ -6,7 +6,7 @@
 }
 @*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">*@
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+@*<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>*@
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.css" />
 
 <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.js"></script>
@@ -84,6 +84,8 @@ if (IsPost)
 
 <script>
     $('#beneficiaryTable').DataTable({
-        "scrollY": "400px"
+        "scrollY": "400px",
+        "order": [],
+        "scrollX": true
     });
 </script>
