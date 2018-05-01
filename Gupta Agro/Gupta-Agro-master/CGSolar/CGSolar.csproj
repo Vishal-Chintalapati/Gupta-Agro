@@ -231,9 +231,6 @@
     <Compile Include="tbl_employee.cs">
       <DependentUpon>GuptaAgroModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="tbl_InventoryStock.cs">
-      <DependentUpon>GuptaAgroModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="tbl_OandM.cs">
       <DependentUpon>GuptaAgroModel.tt</DependentUpon>
     </Compile>

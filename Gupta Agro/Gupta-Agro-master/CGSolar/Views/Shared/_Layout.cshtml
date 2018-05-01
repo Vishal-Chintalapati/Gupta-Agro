@@ -13,7 +13,7 @@
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Gupta Agro", "BeneficiaryDetails", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="container" style="border-radius:8px 8px 8px 8px;">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -23,12 +23,12 @@
                 </button>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        @*<li>@Html.ActionLink("Home", "Index", "Home")</li>*@
+                        <li><a href="@Url.Action("BeneficiaryDetails","Home")">Beneficiary Details</a></li>
+                        <li><a href="@Url.Action("OandMSheet","Home")">O & M Sheet</a></li>
+                        <li><a href="@Url.Action("ComplaintForm","Home")">Complaint Form</a></li>                        
                         <li>@Html.ActionLink("About", "About", "Home")</li>
                         <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                        <li><a href="@Url.Action("OandMSheet","Home")">O & M Sheet</a></li>
-                        <li><a href="@Url.Action("ComplaintForm","Home")">Complaint Form</a></li>
-                        <li><a href="@Url.Action("BeneficiaryDetails","Home")">Beneficiary Details</a></li>
                     </ul>
                     @Html.Partial("_LoginPartial")
                 </div>

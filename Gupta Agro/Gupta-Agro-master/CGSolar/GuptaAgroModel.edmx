@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="GuptaAgroModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="GuptaAgroModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="tbl_beneficiary">
           <Key>
             <PropertyRef Name="BeneficiaryID" />
@@ -31,20 +31,6 @@
           <Property Name="EmployeeName" Type="nvarchar" MaxLength="30" />
           <Property Name="Role" Type="nvarchar" MaxLength="20" />
           <Property Name="ContactNo" Type="nvarchar" MaxLength="10" />
-        </EntityType>
-        <EntityType Name="tbl_InventoryStock">
-          <Key>
-            <PropertyRef Name="InventoryID" />
-          </Key>
-          <Property Name="InventoryID" Type="bigint" Nullable="false" />
-          <Property Name="VendorName" Type="nvarchar" MaxLength="30" />
-          <Property Name="Item" Type="nvarchar" MaxLength="30" />
-          <Property Name="quantity" Type="int" />
-          <Property Name="Price" Type="numeric" Precision="10" Scale="8" />
-          <Property Name="Amount" Type="numeric" Precision="10" Scale="8" />
-          <Property Name="Tax" Type="numeric" Precision="10" Scale="8" />
-          <Property Name="BillNo" Type="nvarchar" MaxLength="30" />
-          <Property Name="BillDate" Type="datetime" />
         </EntityType>
         <EntityType Name="tbl_OandM">
           <Key>
@@ -83,14 +69,14 @@
         <EntityContainer Name="GuptaAgroModelStoreContainer">
           <EntitySet Name="tbl_beneficiary" EntityType="Self.tbl_beneficiary" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_employee" EntityType="Self.tbl_employee" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="tbl_InventoryStock" EntityType="Self.tbl_InventoryStock" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_OandM" EntityType="Self.tbl_OandM" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_BeneficiaryID" Association="Self.FK_BeneficiaryID">
             <End Role="tbl_beneficiary" EntitySet="tbl_beneficiary" />
             <End Role="tbl_OandM" EntitySet="tbl_OandM" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="GuptaAgroModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -111,7 +97,7 @@
           <Property Name="Aadhar" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
           <Property Name="Caste" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="category" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="tbl_OandM" Relationship="GuptaAgroModel.FK_BeneficiaryID" FromRole="tbl_beneficiary" ToRole="tbl_OandM" />
+          <NavigationProperty Name="tbl_OandM" Relationship="Self.FK_BeneficiaryID" FromRole="tbl_beneficiary" ToRole="tbl_OandM" />
         </EntityType>
         <EntityType Name="tbl_employee">
           <Key>
@@ -121,20 +107,6 @@
           <Property Name="EmployeeName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="Role" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="ContactNo" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="tbl_InventoryStock">
-          <Key>
-            <PropertyRef Name="InventoryID" />
-          </Key>
-          <Property Name="InventoryID" Type="Int64" Nullable="false" />
-          <Property Name="VendorName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-          <Property Name="Item" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-          <Property Name="quantity" Type="Int32" />
-          <Property Name="Price" Type="Decimal" Precision="10" Scale="8" />
-          <Property Name="Amount" Type="Decimal" Precision="10" Scale="8" />
-          <Property Name="Tax" Type="Decimal" Precision="10" Scale="8" />
-          <Property Name="BillNo" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-          <Property Name="BillDate" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="tbl_OandM">
           <Key>
@@ -149,29 +121,11 @@
           <Property Name="ProblemType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Status" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="DateOfCompletion" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="tbl_beneficiary" Relationship="GuptaAgroModel.FK_BeneficiaryID" FromRole="tbl_OandM" ToRole="tbl_beneficiary" />
+          <NavigationProperty Name="tbl_beneficiary" Relationship="Self.FK_BeneficiaryID" FromRole="tbl_OandM" ToRole="tbl_beneficiary" />
         </EntityType>
-        <EntityContainer Name="GuptaAgroDBContext" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="tbl_beneficiary" EntityType="Self.tbl_beneficiary" />
-          <EntitySet Name="tbl_employee" EntityType="Self.tbl_employee" />
-          <EntitySet Name="tbl_InventoryStock" EntityType="Self.tbl_InventoryStock" />
-          <EntitySet Name="tbl_OandM" EntityType="Self.tbl_OandM" />
-          <FunctionImport Name="usp_complaint" ReturnType="Collection(Int32)">
-            <Parameter Name="workorder" Mode="In" Type="String" />
-            <Parameter Name="beneficiaryId" Mode="In" Type="Int32" />
-            <Parameter Name="assignedTo" Mode="In" Type="String" />
-            <Parameter Name="aadhar" Mode="In" Type="String" />
-            <Parameter Name="reportedon" Mode="In" Type="DateTime" />
-            <Parameter Name="problemtype" Mode="In" Type="String" />
-          </FunctionImport>
-          <AssociationSet Name="FK_BeneficiaryID" Association="GuptaAgroModel.FK_BeneficiaryID">
-            <End Role="tbl_beneficiary" EntitySet="tbl_beneficiary" />
-            <End Role="tbl_OandM" EntitySet="tbl_OandM" />
-          </AssociationSet>
-        </EntityContainer>
         <Association Name="FK_BeneficiaryID">
-          <End Type="GuptaAgroModel.tbl_beneficiary" Role="tbl_beneficiary" Multiplicity="1" />
-          <End Type="GuptaAgroModel.tbl_OandM" Role="tbl_OandM" Multiplicity="*" />
+          <End Role="tbl_beneficiary" Type="Self.tbl_beneficiary" Multiplicity="1" />
+          <End Role="tbl_OandM" Type="Self.tbl_OandM" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tbl_beneficiary">
               <PropertyRef Name="BeneficiaryID" />
@@ -181,12 +135,29 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityContainer Name="GuptaAgroDbContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tbl_beneficiary" EntityType="Self.tbl_beneficiary" />
+          <EntitySet Name="tbl_employee" EntityType="Self.tbl_employee" />
+          <EntitySet Name="tbl_OandM" EntityType="Self.tbl_OandM" />
+          <AssociationSet Name="FK_BeneficiaryID" Association="Self.FK_BeneficiaryID">
+            <End Role="tbl_beneficiary" EntitySet="tbl_beneficiary" />
+            <End Role="tbl_OandM" EntitySet="tbl_OandM" />
+          </AssociationSet>
+          <FunctionImport Name="usp_complaint" ReturnType="Collection(Int32)">
+            <Parameter Name="workorder" Mode="In" Type="String" />
+            <Parameter Name="beneficiaryId" Mode="In" Type="Int32" />
+            <Parameter Name="assignedTo" Mode="In" Type="String" />
+            <Parameter Name="aadhar" Mode="In" Type="String" />
+            <Parameter Name="reportedon" Mode="In" Type="DateTime" />
+            <Parameter Name="problemtype" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="GuptaAgroModelStoreContainer" CdmEntityContainer="GuptaAgroDBContext">
+        <EntityContainerMapping StorageEntityContainer="GuptaAgroModelStoreContainer" CdmEntityContainer="GuptaAgroDbContext">
           <EntitySetMapping Name="tbl_beneficiary">
             <EntityTypeMapping TypeName="GuptaAgroModel.tbl_beneficiary">
               <MappingFragment StoreEntitySet="tbl_beneficiary">
@@ -213,21 +184,6 @@
                 <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
                 <ScalarProperty Name="Role" ColumnName="Role" />
                 <ScalarProperty Name="ContactNo" ColumnName="ContactNo" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tbl_InventoryStock">
-            <EntityTypeMapping TypeName="GuptaAgroModel.tbl_InventoryStock">
-              <MappingFragment StoreEntitySet="tbl_InventoryStock">
-                <ScalarProperty Name="InventoryID" ColumnName="InventoryID" />
-                <ScalarProperty Name="VendorName" ColumnName="VendorName" />
-                <ScalarProperty Name="Item" ColumnName="Item" />
-                <ScalarProperty Name="quantity" ColumnName="quantity" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="Amount" ColumnName="Amount" />
-                <ScalarProperty Name="Tax" ColumnName="Tax" />
-                <ScalarProperty Name="BillNo" ColumnName="BillNo" />
-                <ScalarProperty Name="BillDate" ColumnName="BillDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

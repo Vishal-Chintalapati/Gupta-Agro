@@ -85,6 +85,14 @@
                         <input id="reportDate" name="ReportedDate" class="form-control" type="text" placeholder="Please Select Date" />
                     </div>
                 </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2" style="color:white">Pump Type: </label>
+                    <div class="col-sm-4">
+                        <input id="pumpType" name="PumpType" class="form-control" type="text" placeholder="Please Enter Pump Type" />
+                    </div>
+                </div>
+
                 <div class="form-group">
                     <label class="control-label col-sm-2" style="color:white">Problem Description: </label>
                     <div class="col-sm-4">
@@ -95,8 +103,9 @@
                     <label class="control-label col-sm-2" style="color:white">Field Assistant: </label>
                     <div class="col-sm-4">
                         <select name="AssignedTo" class="form-control">
+                            <option value="0">--Select Field Assistant--</option>
                             @foreach (var item in (ViewBag.EmployeeList as List<tbl_employee>))
-                            {
+                            {                                
                                 <option value="@item.EmployeeID">@item.EmployeeName</option>
                                 @*<option>User 2</option>
                                 <option>User 3</option>
@@ -143,7 +152,7 @@
         },
         minLength: 3,
         select: function (event, ui) {
-            debugger;
+            debugger;           
             console.log(ui.item.value)
             $.ajax({
                 url: "@Url.Action("AutoFill","Home")",
@@ -159,6 +168,10 @@
                     $('#beneficiaryName').val(data.name);
                     $('#beneficiaryID').val(ui.item.value);
                     $('#systemCapacity').val(data.systemCapacity);
+                    $('#pumpType').val(data.pumpType);
+                    if ($('#contactNumber').val() == null || $('#contactNumber').val() == "") {
+                        $('#contactNumber').attr('readonly', true);
+                    }
                 }
         });
             

@@ -9,7 +9,7 @@ namespace CGSolar.Controllers
 {
     public class HomeController : Controller
     {
-        GuptaAgroDBContext db = new GuptaAgroDBContext();
+        GuptaAgroDbContext db = new GuptaAgroDbContext();
         public ActionResult Index()
         {
             return View();
@@ -56,6 +56,7 @@ namespace CGSolar.Controllers
         public ActionResult ComplaintForm()
         {
             ViewBag.EmployeeList = db.tbl_employee.Select(e => e).ToList();
+            ViewBag.PumpTypeList = db.tbl_beneficiary.Select(e => e.PumpType).Distinct().ToList();
             return View();
         }
 
@@ -104,7 +105,7 @@ namespace CGSolar.Controllers
         public JsonResult AutoFill(int id)
         {
 
-            var list = db.tbl_beneficiary.Where(b => b.BeneficiaryID == id).Select(b => new { name = b.BeneficiaryName, workOrder = b.WorkOrderNo, village = b.Village, block = b.Block, district = b.District, contact = b.ContactNo, systemCapacity = b.systemCapacity }).FirstOrDefault();
+            var list = db.tbl_beneficiary.Where(b => b.BeneficiaryID == id).Select(b => new { name = b.BeneficiaryName, workOrder = b.WorkOrderNo, village = b.Village, block = b.Block, district = b.District, contact = b.ContactNo, systemCapacity = b.systemCapacity, pumpType = b.PumpType }).FirstOrDefault();
             return Json(list, JsonRequestBehavior.AllowGet);
         }
     }

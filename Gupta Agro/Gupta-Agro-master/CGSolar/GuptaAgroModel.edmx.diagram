@@ -4,12 +4,11 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="08bb095e993d4471909442305f3cde0f" Name="Diagram1">
-        <EntityTypeShape EntityType="GuptaAgroModel.tbl_beneficiary" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="GuptaAgroModel.tbl_employee" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="GuptaAgroModel.tbl_InventoryStock" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="GuptaAgroModel.tbl_OandM" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
-        <AssociationConnector Association="GuptaAgroModel.FK_BeneficiaryID" />
+      <Diagram DiagramId="ad5377086d7d4f3fb76bd4f7c04b0641" Name="Diagram1">
+        <EntityTypeShape EntityType="GuptaAgroModel.tbl_beneficiary" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="GuptaAgroModel.tbl_employee" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GuptaAgroModel.tbl_OandM" Width="1.5" PointX="3" PointY="1.375" IsExpanded="true" />
+        <AssociationConnector Association="GuptaAgroModel.FK_BeneficiaryID" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

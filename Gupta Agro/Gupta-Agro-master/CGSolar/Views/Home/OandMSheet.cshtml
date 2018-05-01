@@ -66,8 +66,9 @@
                         <td>@item.ProblemDescription</td>
                         <td>@item.Status</td>
                         <td>@item.CompletionDate</td>
+                        <td><a data-target="#myModal_@count" data-toggle="modal">Edit</a></td>
                     </tr>
-                    <tr>
+                    @*<tr>
                             <td>2</td>
                             <td>123456</td>
                             <td>Vishal</td>
@@ -123,7 +124,7 @@
                             <td>Problem Type</td>
                             <td>Status</td>
                             <td>2/3/4</td>
-                        </tr>
+                        </tr>*@
                         count++;
                     }
                 }
@@ -161,6 +162,106 @@
             </tbody>
         </table>
     </div>
+@{int modalCount = 0;}
+@foreach (var item in Model)
+{
+    modalCount++;
+    <div id="myModal_@modalCount" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Modal Header</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="panel-body">
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" style="color:white">Work Order: </label>
+                                <div class="col-sm-4">
+                                    <input id="workOrder" name="WorkOrder" class="form-control" type="text" placeholder="Please Enter Work Order No." />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" style="color:white">System Capacity: </label>
+                                <div class="col-sm-4">
+                                    <input id="systemCapacity" name="SystemCapacity" class="form-control" type="text" placeholder="Please Enter System Capacity" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" style="color:white">Beneficiary Name: </label>
+                                <div class="col-sm-4">
+                                    <input id="beneficiaryName" class="form-control" type="text" placeholder="Please Enter Beneficiary Name" />
+                                    <input id="beneficiaryID" name="benID" type="hidden" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" style="color:white">Contact Number: </label>
+                                <div class="col-sm-4">
+                                    <input id="contactNumber" name="Contact" class="form-control" type="text" placeholder="Please Enter Contact Number" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" style="color:white">Village: </label>
+                                <div class="col-sm-4">
+                                    <input id="village" name="Village" class="form-control" type="text" placeholder="Please Enter Village Name" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" style="color:white">Block: </label>
+                                <div class="col-sm-4">
+                                    <input id="block" name="Block" class="form-control" type="text" placeholder="Please Enter Block No." />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" style="color:white">District: </label>
+                                <div class="col-sm-4">
+                                    <input id="district" name="District" class="form-control" type="text" placeholder="Please Enter District" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" style="color:white">Problem Reported Date: </label>
+                                <div class="col-sm-4">
+                                    <input id="reportDate" name="ReportedDate" class="form-control" type="text" placeholder="Please Select Date" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" style="color:white">Pump Type: </label>
+                                <div class="col-sm-4">
+                                    <input id="pumpType" name="PumpType" class="form-control" type="text" placeholder="Please Enter Pump Type" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" style="color:white">Problem Description: </label>
+                                <div class="col-sm-4">
+                                    <textarea class="form-control" name="ProblemDescription" placeholder="Please Enter Problem Description"></textarea>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <div class="col-sm-3"></div>
+                                <div class="col-sm-2">
+                                    <button class="form-control btn-success" type="submit" formaction="ComplaintForm" formmethod="post">
+                                        Submit
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+}
 
 <script>
     $('#OMtable').DataTable({
