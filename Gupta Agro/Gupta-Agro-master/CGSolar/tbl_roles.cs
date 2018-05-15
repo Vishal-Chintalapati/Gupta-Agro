@@ -12,15 +12,13 @@ namespace CGSolar
     using System;
     using System.Collections.Generic;
     
-    public partial class tbl_employee
+    public partial class tbl_roles
     {
-        public int EmployeeID { get; set; }
-        public string EmployeeName { get; set; }
-        public string Role { get; set; }
-        public string ContactNo { get; set; }
-        public string userid { get; set; }
-        public string password { get; set; }
-        public Nullable<System.DateTime> createddate { get; set; }
+        public int roleid { get; set; }
+        public string role { get; set; }
         public string createdby { get; set; }
+        public Nullable<System.DateTime> createddate { get; set; }
+        public string modifiedby { get; set; }
+        public Nullable<System.DateTime> modifieddate { get; set; }
     }
 }

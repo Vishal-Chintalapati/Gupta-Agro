@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="GuptaAgroModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="GuptaAgroModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="tbl_beneficiary">
           <Key>
             <PropertyRef Name="BeneficiaryID" />
@@ -31,6 +31,10 @@
           <Property Name="EmployeeName" Type="nvarchar" MaxLength="30" />
           <Property Name="Role" Type="nvarchar" MaxLength="20" />
           <Property Name="ContactNo" Type="nvarchar" MaxLength="10" />
+          <Property Name="userid" Type="varchar" MaxLength="20" />
+          <Property Name="password" Type="varchar" MaxLength="20" />
+          <Property Name="createddate" Type="datetime" />
+          <Property Name="createdby" Type="varchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="tbl_OandM">
           <Key>
@@ -45,6 +49,20 @@
           <Property Name="ProblemType" Type="nvarchar" MaxLength="50" />
           <Property Name="Status" Type="nvarchar" MaxLength="10" />
           <Property Name="DateOfCompletion" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'AgroDb.dbo.tbl_roles' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="tbl_roles">
+          <Key>
+            <PropertyRef Name="roleid" />
+            <PropertyRef Name="role" />
+          </Key>
+          <Property Name="roleid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="role" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="createdby" Type="varchar" MaxLength="20" />
+          <Property Name="createddate" Type="datetime" />
+          <Property Name="modifiedby" Type="varchar" MaxLength="20" />
+          <Property Name="modifieddate" Type="datetime" />
         </EntityType>
         <Association Name="FK_BeneficiaryID">
           <End Role="tbl_beneficiary" Type="Self.tbl_beneficiary" Multiplicity="1" />
@@ -66,17 +84,40 @@
           <Parameter Name="reportedon" Type="datetime" Mode="In" />
           <Parameter Name="problemtype" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="usp_generateUserID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="username" Type="varchar" Mode="In" />
+          <Parameter Name="contactno" Type="varchar" Mode="In" />
+          <Parameter Name="role" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_RegisterUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EmployeeName" Type="varchar" Mode="In" />
+          <Parameter Name="userid" Type="varchar" Mode="In" />
+          <Parameter Name="role" Type="varchar" Mode="In" />
+          <Parameter Name="contactno" Type="varchar" Mode="In" />
+          <Parameter Name="password" Type="varchar" Mode="In" />
+          <Parameter Name="createddate" Type="datetime" Mode="In" />
+          <Parameter Name="createdby" Type="varchar" Mode="In" />
+        </Function>
         <EntityContainer Name="GuptaAgroModelStoreContainer">
           <EntitySet Name="tbl_beneficiary" EntityType="Self.tbl_beneficiary" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_employee" EntityType="Self.tbl_employee" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_OandM" EntityType="Self.tbl_OandM" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_roles" EntityType="Self.tbl_roles" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [tbl_roles].[roleid] AS [roleid], 
+    [tbl_roles].[role] AS [role], 
+    [tbl_roles].[createdby] AS [createdby], 
+    [tbl_roles].[createddate] AS [createddate], 
+    [tbl_roles].[modifiedby] AS [modifiedby], 
+    [tbl_roles].[modifieddate] AS [modifieddate]
+    FROM [dbo].[tbl_roles] AS [tbl_roles]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_BeneficiaryID" Association="Self.FK_BeneficiaryID">
             <End Role="tbl_beneficiary" EntitySet="tbl_beneficiary" />
             <End Role="tbl_OandM" EntitySet="tbl_OandM" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="GuptaAgroModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -107,6 +148,10 @@
           <Property Name="EmployeeName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="Role" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="ContactNo" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="userid" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="createddate" Type="DateTime" Precision="3" />
+          <Property Name="createdby" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="tbl_OandM">
           <Key>
@@ -151,7 +196,34 @@
             <Parameter Name="reportedon" Mode="In" Type="DateTime" />
             <Parameter Name="problemtype" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="tbl_roles" EntityType="GuptaAgroModel.tbl_roles" />
+          <FunctionImport Name="usp_generateUserID" ReturnType="Collection(String)">
+            <Parameter Name="username" Mode="In" Type="String" />
+            <Parameter Name="contactno" Mode="In" Type="String" />
+            <Parameter Name="role" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_RegisterUser" ReturnType="Collection(Int32)">
+            <Parameter Name="EmployeeName" Mode="In" Type="String" />
+            <Parameter Name="userid" Mode="In" Type="String" />
+            <Parameter Name="role" Mode="In" Type="String" />
+            <Parameter Name="contactno" Mode="In" Type="String" />
+            <Parameter Name="password" Mode="In" Type="String" />
+            <Parameter Name="createddate" Mode="In" Type="DateTime" />
+            <Parameter Name="createdby" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
+        <EntityType Name="tbl_roles">
+          <Key>
+            <PropertyRef Name="roleid" />
+            <PropertyRef Name="role" />
+          </Key>
+          <Property Name="roleid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="role" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="createdby" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="createddate" Type="DateTime" Precision="3" />
+          <Property Name="modifiedby" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="modifieddate" Type="DateTime" Precision="3" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -180,6 +252,10 @@
           <EntitySetMapping Name="tbl_employee">
             <EntityTypeMapping TypeName="GuptaAgroModel.tbl_employee">
               <MappingFragment StoreEntitySet="tbl_employee">
+                <ScalarProperty Name="createdby" ColumnName="createdby" />
+                <ScalarProperty Name="createddate" ColumnName="createddate" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
                 <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
                 <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
                 <ScalarProperty Name="Role" ColumnName="Role" />
@@ -203,6 +279,20 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="usp_complaint" FunctionName="GuptaAgroModel.Store.usp_complaint" />
+          <EntitySetMapping Name="tbl_roles">
+            <EntityTypeMapping TypeName="GuptaAgroModel.tbl_roles">
+              <MappingFragment StoreEntitySet="tbl_roles">
+                <ScalarProperty Name="modifieddate" ColumnName="modifieddate" />
+                <ScalarProperty Name="modifiedby" ColumnName="modifiedby" />
+                <ScalarProperty Name="createddate" ColumnName="createddate" />
+                <ScalarProperty Name="createdby" ColumnName="createdby" />
+                <ScalarProperty Name="role" ColumnName="role" />
+                <ScalarProperty Name="roleid" ColumnName="roleid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="usp_generateUserID" FunctionName="GuptaAgroModel.Store.usp_generateUserID" />
+          <FunctionImportMapping FunctionImportName="usp_RegisterUser" FunctionName="GuptaAgroModel.Store.usp_RegisterUser" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

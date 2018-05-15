@@ -48,11 +48,14 @@ if (IsPost)
             <table id="beneficiaryTable" style="border: 1px solid black">
                 <thead style="background-color: burlywood;">
                     <tr>
+                        <td><b>Work Order #</b></td>
                         <td><b>Beneficiary Name</b></td>
                         <td><b>Father's Name</b></td>
                         <td><b>Caste</b></td>
                         <td><b>Village</b></td>
                         <td><b>Block</b></td>
+                        <td><b>District</b></td>
+                        <td><b>Aadhar No.</b></td>
                         <td><b>Contact Number</b></td>
                         <td><b>System Capacity</b></td>
                         <td><b>Pump Type</b></td>
@@ -62,11 +65,14 @@ if (IsPost)
                     @foreach (var beneficiary in Model.BeneficiaryList)
                 {
                         <tr>
+                            <td>@beneficiary.WorkOrderNo</td>
                             <td>@beneficiary.BeneficiaryName</td>
                             <td>@beneficiary.FatherName</td>
                             <td>@beneficiary.Caste</td>
                             <td>@beneficiary.Village</td>
                             <td>@beneficiary.Block</td>
+                            <td>@beneficiary.District</td>
+                            <td>@beneficiary.Aadhar</td>
                             <td>@beneficiary.ContactNo</td>
                             <td>@beneficiary.systemCapacity</td>
                             <td>@beneficiary.PumpType</td>

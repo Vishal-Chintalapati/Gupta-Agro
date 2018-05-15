@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using CGSolar.Models;
+using System.Web.Security;
 
 namespace CGSolar.Controllers
 {
@@ -66,29 +67,74 @@ namespace CGSolar.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
+        public async Task<ActionResult> Login(LoginModel model, string returnUrl)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return View(model);
-            }
-
-            // This doesn't count login failures towards account lockout
-            // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
-            switch (result)
-            {
-                case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
-                case SignInStatus.LockedOut:
-                    return View("Lockout");
-                case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-                case SignInStatus.Failure:
-                default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
+                if (!ModelState.IsValid)
+                {
                     return View(model);
+                }
+                using (GuptaAgroDbContext db = new GuptaAgroDbContext())
+                {
+                    var user = db.tbl_employee.Where(e => e.userid == model.UserName && e.password == model.Password).Select(e => e).FirstOrDefault();
+
+                    if (user != null)
+                    {
+                        FormsAuthentication.SetAuthCookie(model.UserName, false);
+
+                        var authTicket = new FormsAuthenticationTicket(1, user.EmployeeName, DateTime.Now, DateTime.Now.AddMinutes(20), false, user.Role);
+                        string encryptedTicket = FormsAuthentication.Encrypt(authTicket);
+                        var authCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
+                        HttpContext.Response.Cookies.Add(authCookie);
+                        Session["role"] = user.Role;
+                        Session.Timeout = 30;
+                        if (user.Role == "Admin")
+                        {
+                            return RedirectToAction("BeneficiaryDetails", "Home");
+                        }
+                        else if (user.Role == "Field Assitant")
+                        {
+                            return RedirectToAction("OandMSheet", "Home");
+                        }
+                        else if (user.Role == "Manager")
+                        {
+                            return RedirectToAction("ComplaintForm", "Home");
+                        }
+                        else
+                        {
+                            throw new Exception();
+                        }
+                    }
+
+                    else
+                    {
+                        ModelState.AddModelError("", "Invalid login attempt.");
+                        return View(model);
+                    }
+                }
+            
             }
+            catch(Exception ex)
+            {
+                return View("Error");
+            }   
+            //// This doesn't count login failures towards account lockout
+            //// To enable password failures to trigger account lockout, change to shouldLockout: true
+            //var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            //switch (result)
+            //{
+            //    case SignInStatus.Success:
+            //        return RedirectToLocal(returnUrl);
+            //    case SignInStatus.LockedOut:
+            //        return View("Lockout");
+            //    case SignInStatus.RequiresVerification:
+            //        return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+            //    case SignInStatus.Failure:
+            //    default:
+            //        ModelState.AddModelError("", "Invalid login attempt.");
+            //        return View(model);
+            //}
         }
 
         //
@@ -391,7 +437,8 @@ namespace CGSolar.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
-            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            //AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            FormsAuthentication.SignOut();
             return RedirectToAction("Index", "Home");
         }
 

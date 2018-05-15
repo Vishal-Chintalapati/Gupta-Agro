@@ -9,40 +9,61 @@
 
 </head>
 <body>
+    @if (Session["role"] != null)
+    {
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    @Html.ActionLink("Gupta Agro", "BeneficiaryDetails", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="container" style="border-radius:8px 8px 8px 8px;">
 
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                @Html.ActionLink("Gupta Agro", "BeneficiaryDetails", "Home", new { area = "" }, new { @class = "navbar-brand" })
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-            </div>
-            <div class="container" style="border-radius:8px 8px 8px 8px;">
+                    <div class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+                            @*<li>@Html.ActionLink("Home", "Index", "Home")</li>*@
+                            @if (Session["role"].ToString() == "Admin" || Session["role"].ToString() == "Manager")
+                            {
+                                <li><a href="@Url.Action("BeneficiaryDetails","Home")">Beneficiary Details</a></li>
+                                <li><a href="@Url.Action("OandMSheet","Home")">O & M Sheet</a></li>
 
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        @*<li>@Html.ActionLink("Home", "Index", "Home")</li>*@
-                        <li><a href="@Url.Action("BeneficiaryDetails","Home")">Beneficiary Details</a></li>
-                        <li><a href="@Url.Action("OandMSheet","Home")">O & M Sheet</a></li>
-                        <li><a href="@Url.Action("ComplaintForm","Home")">Complaint Form</a></li>                        
-                        <li>@Html.ActionLink("About", "About", "Home")</li>
-                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    </ul>
-                    @*@Html.Partial("_LoginPartial")*@
+                            }
+                             @if (Session["role"].ToString() == "Manager")
+                             {
+                                <li><a href="@Url.Action("ComplaintForm","Home")">Complaint Form</a></li>
+                             }   
+                            @if (Session["role"].ToString() == "Field Assitant")
+                            {
+                                <li><a href="@Url.Action("BeneficiaryDetails","Home")">Beneficiary Details</a></li>
+                                <li><a href="@Url.Action("OandMSheet","Home")">O & M Sheet</a></li>
+                            }
+                                <li>@Html.ActionLink("About", "About", "Home")</li>
+                                <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                            </ul>
+                            @Html.Partial("_LoginPartial")
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
+
+            <div class="container body-content">
+                @RenderBody()
+            </div>
+    }
+    else
+    {
+        @Html.ActionLink("Return to Login","Login","Home")
+        <p>User Logged out / does not exist</p>
+    }
 
     @*<div class="navbar navbar-inverse" style="margin-top:30px; margin-left:4px;margin-right:4px;">*@
         
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-    </div>
+    @*</div>*@
+
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
