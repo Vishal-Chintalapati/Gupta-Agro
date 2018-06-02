@@ -32,7 +32,7 @@ namespace CGSolar
         public virtual DbSet<tbl_OandM> tbl_OandM { get; set; }
         public virtual DbSet<tbl_roles> tbl_roles { get; set; }
     
-        public virtual ObjectResult<Nullable<int>> usp_complaint(string workorder, Nullable<int> beneficiaryId, string assignedTo, string aadhar, Nullable<System.DateTime> reportedon, string problemtype)
+        public virtual ObjectResult<Nullable<int>> usp_complaint(string workorder, Nullable<int> beneficiaryId, string assignedTo, string aadhar, Nullable<System.DateTime> reportedon, string problemtype, string createdBy)
         {
             var workorderParameter = workorder != null ?
                 new ObjectParameter("workorder", workorder) :
@@ -58,7 +58,11 @@ namespace CGSolar
                 new ObjectParameter("problemtype", problemtype) :
                 new ObjectParameter("problemtype", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("usp_complaint", workorderParameter, beneficiaryIdParameter, assignedToParameter, aadharParameter, reportedonParameter, problemtypeParameter);
+            var createdByParameter = createdBy != null ?
+                new ObjectParameter("createdBy", createdBy) :
+                new ObjectParameter("createdBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("usp_complaint", workorderParameter, beneficiaryIdParameter, assignedToParameter, aadharParameter, reportedonParameter, problemtypeParameter, createdByParameter);
         }
     
         public virtual ObjectResult<string> usp_generateUserID(string username, string contactno, string role)

@@ -17,6 +17,7 @@ namespace CGSolar.Models
         public string SystemCapacity { get; set; }
         public string Contact { get; set; }
         public int AssignedTo { get; set; }
+        public string AssignedEmployee { get; set; }
         public DateTime? ReportedDate { get; set; }
         public string ProblemDescription { get; set; }
         public DateTime? CompletionDate { get; set; }

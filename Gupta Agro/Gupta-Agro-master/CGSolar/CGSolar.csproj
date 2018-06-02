@@ -221,6 +221,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BeneficiaryDetailsModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\OperationAndMaintenanceModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -232,6 +233,9 @@
       <DependentUpon>GuptaAgroModel.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_OandM.cs">
+      <DependentUpon>GuptaAgroModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_roles.cs">
       <DependentUpon>GuptaAgroModel.tt</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -252,6 +256,7 @@
       <DependentUpon>GuptaAgroModel.edmx</DependentUpon>
       <LastGenOutput>GuptaAgroModel.cs</LastGenOutput>
     </Content>
+    <Content Include="images\product-panel.jpg" />
     <Content Include="Scripts\ai.0.22.9-build00167.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -267,6 +272,12 @@
     <Content Include="GuptaAgroModel.edmx.diagram">
       <DependentUpon>GuptaAgroModel.edmx</DependentUpon>
     </Content>
+    <None Include="Properties\PublishProfiles\GuptaAgro - FTP %282%29.pubxml" />
+    <None Include="Properties\PublishProfiles\GuptaAgro - FTP %283%29.pubxml" />
+    <None Include="Properties\PublishProfiles\GuptaAgro - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\GuptaAgro - Web Deploy %282%29.pubxml" />
+    <None Include="Properties\PublishProfiles\GuptaAgro - Web Deploy %283%29.pubxml" />
+    <None Include="Properties\PublishProfiles\GuptaAgro - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\datepicker\css\datepicker.css" />
     <Content Include="Scripts\datepicker\js\bootstrap-datepicker.js" />
@@ -274,7 +285,34 @@
     <Content Include="Scripts\glDatePicker.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\jquery-ui-1.12.1.custom\package.json" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-ui-1.12.1.custom\AUTHORS.txt" />
+    <Content Include="Scripts\jquery-ui-1.12.1.custom\external\jquery\jquery.js" />
+    <Content Include="Scripts\jquery-ui-1.12.1.custom\images\ui-bg_diagonals-thick_8_333333_40x40.png" />
+    <Content Include="Scripts\jquery-ui-1.12.1.custom\images\ui-bg_glass_40_111111_1x400.png" />
+    <Content Include="Scripts\jquery-ui-1.12.1.custom\images\ui-bg_glass_55_1c1c1c_1x400.png" />
+    <Content Include="Scripts\jquery-ui-1.12.1.custom\images\ui-bg_highlight-hard_100_f9f9f9_1x100.png" />
+    <Content Include="Scripts\jquery-ui-1.12.1.custom\images\ui-bg_highlight-hard_40_aaaaaa_1x100.png" />
+    <Content Include="Scripts\jquery-ui-1.12.1.custom\images\ui-bg_highlight-soft_50_aaaaaa_1x100.png" />
+    <Content Include="Scripts\jquery-ui-1.12.1.custom\images\ui-bg_inset-hard_45_cd0a0a_1x100.png" />
+    <Content Include="Scripts\jquery-ui-1.12.1.custom\images\ui-bg_inset-hard_55_ffeb80_1x100.png" />
+    <Content Include="Scripts\jquery-ui-1.12.1.custom\images\ui-icons_222222_256x240.png" />
+    <Content Include="Scripts\jquery-ui-1.12.1.custom\images\ui-icons_4ca300_256x240.png" />
+    <Content Include="Scripts\jquery-ui-1.12.1.custom\images\ui-icons_bbbbbb_256x240.png" />
+    <Content Include="Scripts\jquery-ui-1.12.1.custom\images\ui-icons_ededed_256x240.png" />
+    <Content Include="Scripts\jquery-ui-1.12.1.custom\images\ui-icons_ffcf29_256x240.png" />
+    <Content Include="Scripts\jquery-ui-1.12.1.custom\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Scripts\jquery-ui-1.12.1.custom\index.html" />
+    <Content Include="Scripts\jquery-ui-1.12.1.custom\jquery-ui.css" />
+    <Content Include="Scripts\jquery-ui-1.12.1.custom\jquery-ui.js" />
+    <Content Include="Scripts\jquery-ui-1.12.1.custom\jquery-ui.min.css" />
+    <Content Include="Scripts\jquery-ui-1.12.1.custom\jquery-ui.min.js" />
+    <Content Include="Scripts\jquery-ui-1.12.1.custom\jquery-ui.structure.css" />
+    <Content Include="Scripts\jquery-ui-1.12.1.custom\jquery-ui.structure.min.css" />
+    <Content Include="Scripts\jquery-ui-1.12.1.custom\jquery-ui.theme.css" />
+    <Content Include="Scripts\jquery-ui-1.12.1.custom\jquery-ui.theme.min.css" />
+    <Content Include="Scripts\jquery-ui-1.12.1.custom\LICENSE.txt" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -312,7 +350,9 @@
     <Content Include="Scripts\styles\glDatePicker.default.css" />
     <Content Include="Scripts\styles\glDatePicker.flatwhite.css" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -400,6 +440,8 @@
     <Content Include="Scripts\MDB Free\scss\free\_tables.scss" />
     <Content Include="Scripts\MDB Free\scss\mdb.scss" />
     <Content Include="Scripts\MDB Free\scss\_custom.scss" />
+    <Content Include="Views\Home\Register.cshtml" />
+    <Content Include="Views\Home\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -433,7 +475,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>49969</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:49969/</IISUrl>
+          <IISUrl>http://localhost:49970/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

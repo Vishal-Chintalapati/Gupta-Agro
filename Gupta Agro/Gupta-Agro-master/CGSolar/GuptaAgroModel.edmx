@@ -49,6 +49,7 @@
           <Property Name="ProblemType" Type="nvarchar" MaxLength="50" />
           <Property Name="Status" Type="nvarchar" MaxLength="10" />
           <Property Name="DateOfCompletion" Type="datetime" />
+          <Property Name="Created_By" Type="varchar" MaxLength="10" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'AgroDb.dbo.tbl_roles' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -83,6 +84,7 @@ warning 6002: The table/view 'AgroDb.dbo.tbl_roles' does not have a primary key 
           <Parameter Name="aadhar" Type="varchar" Mode="In" />
           <Parameter Name="reportedon" Type="datetime" Mode="In" />
           <Parameter Name="problemtype" Type="varchar" Mode="In" />
+          <Parameter Name="createdBy" Type="varchar" Mode="In" />
         </Function>
         <Function Name="usp_generateUserID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="username" Type="varchar" Mode="In" />
@@ -167,6 +169,7 @@ warning 6002: The table/view 'AgroDb.dbo.tbl_roles' does not have a primary key 
           <Property Name="Status" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="DateOfCompletion" Type="DateTime" Precision="3" />
           <NavigationProperty Name="tbl_beneficiary" Relationship="Self.FK_BeneficiaryID" FromRole="tbl_OandM" ToRole="tbl_beneficiary" />
+          <Property Name="Created_By" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_BeneficiaryID">
           <End Role="tbl_beneficiary" Type="Self.tbl_beneficiary" Multiplicity="1" />
@@ -195,6 +198,7 @@ warning 6002: The table/view 'AgroDb.dbo.tbl_roles' does not have a primary key 
             <Parameter Name="aadhar" Mode="In" Type="String" />
             <Parameter Name="reportedon" Mode="In" Type="DateTime" />
             <Parameter Name="problemtype" Mode="In" Type="String" />
+            <Parameter Name="createdBy" Mode="In" Type="String" />
           </FunctionImport>
           <EntitySet Name="tbl_roles" EntityType="GuptaAgroModel.tbl_roles" />
           <FunctionImport Name="usp_generateUserID" ReturnType="Collection(String)">
@@ -266,6 +270,7 @@ warning 6002: The table/view 'AgroDb.dbo.tbl_roles' does not have a primary key 
           <EntitySetMapping Name="tbl_OandM">
             <EntityTypeMapping TypeName="GuptaAgroModel.tbl_OandM">
               <MappingFragment StoreEntitySet="tbl_OandM">
+                <ScalarProperty Name="Created_By" ColumnName="Created_By" />
                 <ScalarProperty Name="OandMID" ColumnName="OandMID" />
                 <ScalarProperty Name="WorkOrderID" ColumnName="WorkOrderID" />
                 <ScalarProperty Name="BeneficiaryID" ColumnName="BeneficiaryID" />

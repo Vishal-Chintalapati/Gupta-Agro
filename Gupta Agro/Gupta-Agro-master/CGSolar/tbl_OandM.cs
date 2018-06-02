@@ -23,6 +23,7 @@ namespace CGSolar
         public string ProblemType { get; set; }
         public string Status { get; set; }
         public Nullable<System.DateTime> DateOfCompletion { get; set; }
+        public string Created_By { get; set; }
     
         public virtual tbl_beneficiary tbl_beneficiary { get; set; }
     }

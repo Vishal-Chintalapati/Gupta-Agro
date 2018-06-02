@@ -103,12 +103,24 @@ namespace CGSolar.Controllers
         [Authorize(Roles ="Field Assitant,Admin,Manager")]
         public ActionResult OandMSheet()
         {
-            ViewBag.EmployeeList = db.tbl_employee.Select(e => e).ToList();
+            ViewBag.EmployeeList = db.tbl_employee.Where(e => e.Role == "Field Assitant").Select(e => e).ToList();
             var list = db.tbl_OandM.Select(o => o).Distinct().ToList();
+            if (Session["role"].ToString() == "Field Assitant")
+            {
+                list = list.Where(o => o.AssignedTo == Session["ID"].ToString()).Select(o => o).ToList();
+            }
+            else if (Session["role"].ToString() == "Manager")
+            {
+                list = list.Where(o => o.Created_By == Session["ID"].ToString()).Select(o => o).ToList();
+            }
+            else if(Session["role"].ToString() == "Admin")
+            {
+                list = list;
+            }
             List<OperationAndMaintenanceModel> oNmList = new List<OperationAndMaintenanceModel>();
             foreach(var maintenanceDetails in list)
             {
-                string assignedTo = maintenanceDetails.AssignedTo;
+                int assignedTo =  Convert.ToInt32(maintenanceDetails.AssignedTo);
                 OperationAndMaintenanceModel oNmObj = new OperationAndMaintenanceModel();
                 oNmObj.BeneficiaryName = maintenanceDetails.tbl_beneficiary.BeneficiaryName;
                 oNmObj.BeneficiaryID = maintenanceDetails.tbl_beneficiary.BeneficiaryID;
@@ -122,7 +134,8 @@ namespace CGSolar.Controllers
                 oNmObj.Status = maintenanceDetails.Status;
                 oNmObj.Village = maintenanceDetails.tbl_beneficiary.Village;
                 oNmObj.WorkOrderNo = maintenanceDetails.WorkOrderID;
-                oNmObj.AssignedTo = db.tbl_employee.Where(e=>e.EmployeeName.Trim() == assignedTo.Trim()).Select(e=>e.EmployeeID).FirstOrDefault() ;
+                oNmObj.AssignedTo = assignedTo;/*db.tbl_employee.Where(e=>e.EmployeeName.Trim() == assignedTo.Trim()).Select(e=>e.EmployeeID).FirstOrDefault() ;*/
+                oNmObj.AssignedEmployee = db.tbl_employee.Where(e => e.EmployeeID == assignedTo).Select(e => e.EmployeeName).FirstOrDefault();
                 oNmList.Add(oNmObj);
             }
             
@@ -150,7 +163,7 @@ namespace CGSolar.Controllers
             OandMObj.Status = status;
             OandMObj.WorkOrderID = workOrder;
             string assignedEmp = db.tbl_employee.Where(e => e.EmployeeID == assignedTo).Select(e => e.EmployeeName).FirstOrDefault();
-            OandMObj.AssignedTo = assignedEmp;
+            OandMObj.AssignedTo = assignedTo.ToString();
 
             db.SaveChanges();
             return Json("Success", JsonRequestBehavior.AllowGet);
@@ -158,7 +171,7 @@ namespace CGSolar.Controllers
         [Authorize(Roles = "Manager")]
         public ActionResult ComplaintForm()
         {
-            ViewBag.EmployeeList = db.tbl_employee.Select(e => e).ToList();
+            ViewBag.EmployeeList = db.tbl_employee.Where(e=>e.Role == "Field Assitant").Select(e => e).ToList();
             ViewBag.PumpTypeList = db.tbl_beneficiary.Select(e => e.PumpType).Distinct().ToList();
             return View();
         }
@@ -168,13 +181,14 @@ namespace CGSolar.Controllers
         {
             string workOrder = form["WorkOrder"].ToString();
             int? beneficiaryID = Convert.ToInt32(form["benID"]);
-            int assignedTo = Convert.ToInt32(form["AssignedTo"]);
-            string employeeName = db.tbl_employee.Where(e => e.EmployeeID == assignedTo).Select(e => e.EmployeeName).FirstOrDefault();
+            string assignedTo = form["AssignedTo"].ToString();
+            //string employeeName = db.tbl_employee.Where(e => e.EmployeeID == assignedTo).Select(e => e.EmployeeName).FirstOrDefault();
             string aadhar = db.tbl_beneficiary.Where(b => b.BeneficiaryID == beneficiaryID).Select(b => b.Aadhar).FirstOrDefault();
             DateTime reportedDate = Convert.ToDateTime(form["reportedDate"]).AddHours(DateTime.Now.Hour).AddMinutes(DateTime.Now.Minute).AddSeconds(DateTime.Now.Second).AddMilliseconds(DateTime.Now.Millisecond);
             string problemType = form["ProblemDescription"].ToString();
+            string createdBy = Session["ID"].ToString();
 
-            db.usp_complaint(workOrder,beneficiaryID,employeeName,aadhar,reportedDate,problemType);
+            db.usp_complaint(workOrder,beneficiaryID,assignedTo,aadhar,reportedDate,problemType,createdBy);
             return RedirectToAction("OandMSheet", "Home");
         }
         [Authorize(Roles = "Field Assitant,Admin,Manager")]

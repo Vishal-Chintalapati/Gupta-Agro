@@ -59,6 +59,11 @@ namespace CGSolar.Controllers
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
+            using (GuptaAgroDbContext db = new GuptaAgroDbContext())
+            {
+                ViewBag.Roles = db.tbl_roles.Select(r => r).ToList();
+            }
+            
             return View();
         }
 
@@ -73,11 +78,15 @@ namespace CGSolar.Controllers
             {
                 if (!ModelState.IsValid)
                 {
+                    using (GuptaAgroDbContext db = new GuptaAgroDbContext())
+                    {
+                        ViewBag.Roles = db.tbl_roles.Select(r => r).ToList();
+                    }
                     return View(model);
                 }
                 using (GuptaAgroDbContext db = new GuptaAgroDbContext())
                 {
-                    var user = db.tbl_employee.Where(e => e.userid == model.UserName && e.password == model.Password).Select(e => e).FirstOrDefault();
+                    var user = db.tbl_employee.Where(e => (e.userid == model.UserName && e.password == model.Password) || (e.ContactNo == model.UserName && e.password == model.Password)).Select(e => e).FirstOrDefault();
 
                     if (user != null)
                     {
@@ -88,6 +97,7 @@ namespace CGSolar.Controllers
                         var authCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
                         HttpContext.Response.Cookies.Add(authCookie);
                         Session["role"] = user.Role;
+                        Session["ID"] = user.EmployeeID;
                         Session.Timeout = 30;
                         if (user.Role == "Admin")
                         {
@@ -109,6 +119,9 @@ namespace CGSolar.Controllers
 
                     else
                     {
+
+                        ViewBag.Roles = db.tbl_roles.Select(r => r).ToList();
+                        
                         ModelState.AddModelError("", "Invalid login attempt.");
                         return View(model);
                     }
@@ -439,6 +452,7 @@ namespace CGSolar.Controllers
         {
             //AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             FormsAuthentication.SignOut();
+            Session.Abandon();
             return RedirectToAction("Index", "Home");
         }
 
