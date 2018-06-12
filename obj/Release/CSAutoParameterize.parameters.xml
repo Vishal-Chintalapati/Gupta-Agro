@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="GuptaAgroDbContext-Web.config Connection String" description="GuptaAgroDbContext Connection String used in web.config by the application to access the database." defaultValue="metadata=res://*/GuptaAgroModel.csdl|res://*/GuptaAgroModel.ssdl|res://*/GuptaAgroModel.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=184.168.194.77;initial catalog=ph15954688577_CG;persist security info=True;user id=cgsolar;password=Cgsolar1!;MultipleActiveResultSets=True;App=EntityFramework&quot;" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="D:\\Gupta\ Agro\\Gupta-Agro-master\\CGSolar\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='GuptaAgroDbContext']/@connectionString" />
+  </parameter>
+  <parameter name="Excel03ConString-Web.config Connection String" description="Excel03ConString Connection String used in web.config by the application to access the database." defaultValue="Provider=Microsoft.Jet.OLEDB.4.0;Data Source={0};Extended Properties='Excel 8.0;HDR=YES'" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="D:\\Gupta\ Agro\\Gupta-Agro-master\\CGSolar\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='Excel03ConString']/@connectionString" />
+  </parameter>
+  <parameter name="Excel07ConString-Web.config Connection String" description="Excel07ConString Connection String used in web.config by the application to access the database." defaultValue="Provider=Microsoft.Jet.OLEDB.4.0;Data Source={0};Extended Properties='Excel 8.0;HDR=YES'" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="D:\\Gupta\ Agro\\Gupta-Agro-master\\CGSolar\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='Excel07ConString']/@connectionString" />
+  </parameter>
+  <parameter name="DefaultConnection-Web.config Connection String" description="DefaultConnection Connection String used in web.config by the application to access the database." defaultValue="DefaultConnection_ConnectionString" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="D:\\Gupta\ Agro\\Gupta-Agro-master\\CGSolar\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='DefaultConnection']/@connectionString" />
+  </parameter>
+</parameters>

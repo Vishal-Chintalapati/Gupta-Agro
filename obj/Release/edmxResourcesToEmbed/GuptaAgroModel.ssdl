@@ -1,0 +1,180 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="GuptaAgroModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="tbl_beneficiary">
+    <Key>
+      <PropertyRef Name="BeneficiaryID" />
+    </Key>
+    <Property Name="BeneficiaryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="WorkOrderNo" Type="varchar" MaxLength="10" />
+    <Property Name="PumpType" Type="varchar" MaxLength="30" />
+    <Property Name="systemCapacity" Type="varchar" MaxLength="5" />
+    <Property Name="BeneficiaryName" Type="nvarchar" MaxLength="50" />
+    <Property Name="FatherName" Type="nvarchar" MaxLength="50" />
+    <Property Name="ContactNo" Type="varchar" MaxLength="10" />
+    <Property Name="Village" Type="nvarchar" MaxLength="50" />
+    <Property Name="Block" Type="nvarchar" MaxLength="50" />
+    <Property Name="District" Type="nvarchar" MaxLength="50" />
+    <Property Name="Aadhar" Type="nvarchar" MaxLength="15" />
+    <Property Name="Caste" Type="nvarchar" MaxLength="10" />
+    <Property Name="category" Type="nvarchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="tbl_distributions">
+    <Key>
+      <PropertyRef Name="distributionId" />
+    </Key>
+    <Property Name="distributionId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="employeeID" Type="int" />
+    <Property Name="itemcode" Type="bigint" />
+    <Property Name="Allocatedquantity" Type="int" />
+    <Property Name="Remainingquantity" Type="int" />
+    <Property Name="usedquantity" Type="int" />
+    <Property Name="createdby" Type="varchar" MaxLength="20" />
+    <Property Name="createdDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="tbl_employee">
+    <Key>
+      <PropertyRef Name="EmployeeID" />
+    </Key>
+    <Property Name="EmployeeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmployeeName" Type="nvarchar" MaxLength="30" />
+    <Property Name="Role" Type="nvarchar" MaxLength="20" />
+    <Property Name="ContactNo" Type="nvarchar" MaxLength="10" />
+    <Property Name="userid" Type="varchar" MaxLength="20" />
+    <Property Name="password" Type="varchar" MaxLength="20" />
+    <Property Name="createddate" Type="datetime" />
+    <Property Name="createdby" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="tbl_InventoryStock">
+    <Key>
+      <PropertyRef Name="InventoryID" />
+    </Key>
+    <Property Name="InventoryID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="VendorName" Type="nvarchar" MaxLength="30" />
+    <Property Name="Item" Type="nvarchar" MaxLength="30" />
+    <Property Name="quantity" Type="int" />
+    <Property Name="Price" Type="numeric" Precision="10" Scale="8" />
+    <Property Name="Amount" Type="numeric" Precision="10" Scale="8" />
+    <Property Name="Tax" Type="numeric" Precision="10" Scale="8" />
+    <Property Name="BillNo" Type="nvarchar" MaxLength="30" />
+    <Property Name="BillDate" Type="datetime" />
+    <Property Name="createdby" Type="varchar" MaxLength="20" />
+    <Property Name="createddate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="tbl_Items">
+    <Key>
+      <PropertyRef Name="itemcode" />
+    </Key>
+    <Property Name="itemcode" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="itemname" Type="varchar" MaxLength="30" />
+    <Property Name="createdby" Type="varchar" MaxLength="20" />
+    <Property Name="createddate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="tbl_itemstock">
+    <Key>
+      <PropertyRef Name="itemstockId" />
+    </Key>
+    <Property Name="itemstockId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Itemcode" Type="bigint" />
+    <Property Name="quantity" Type="int" />
+  </EntityType>
+  <EntityType Name="tbl_OandM">
+    <Key>
+      <PropertyRef Name="OandMID" />
+    </Key>
+    <Property Name="OandMID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="WorkOrderID" Type="varchar" MaxLength="10" />
+    <Property Name="BeneficiaryID" Type="int" Nullable="false" />
+    <Property Name="AssignedTo" Type="varchar" MaxLength="20" />
+    <Property Name="AadharNo" Type="nvarchar" MaxLength="12" />
+    <Property Name="ProblemreportedOn" Type="datetime" />
+    <Property Name="ProblemType" Type="varchar" MaxLength="255" />
+    <Property Name="Status" Type="nvarchar" MaxLength="10" />
+    <Property Name="DateOfCompletion" Type="datetime" />
+    <Property Name="Created_By" Type="varchar" MaxLength="10" />
+    <Property Name="ActualProblem" Type="varchar" MaxLength="255" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'ph15954688577_CG.dbo.tbl_roles' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="tbl_roles">
+    <Key>
+      <PropertyRef Name="roleid" />
+      <PropertyRef Name="role" />
+    </Key>
+    <Property Name="roleid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="role" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="createdby" Type="varchar" MaxLength="20" />
+    <Property Name="createddate" Type="datetime" />
+    <Property Name="modifiedby" Type="varchar" MaxLength="20" />
+    <Property Name="modifieddate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="tbl_StockRequest">
+    <Key>
+      <PropertyRef Name="Request_ID" />
+    </Key>
+    <Property Name="Request_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmployeeID" Type="int" />
+    <Property Name="EmployeeName" Type="varchar" MaxLength="200" />
+    <Property Name="ItemCode" Type="int" />
+    <Property Name="ItemName" Type="varchar" MaxLength="100" />
+    <Property Name="Status" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <Association Name="FK_BeneficiaryID">
+    <End Role="tbl_beneficiary" Type="Self.tbl_beneficiary" Multiplicity="1" />
+    <End Role="tbl_OandM" Type="Self.tbl_OandM" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_beneficiary">
+        <PropertyRef Name="BeneficiaryID" />
+      </Principal>
+      <Dependent Role="tbl_OandM">
+        <PropertyRef Name="BeneficiaryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="usp_complaint" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="workorder" Type="varchar" Mode="In" />
+    <Parameter Name="beneficiaryId" Type="int" Mode="In" />
+    <Parameter Name="assignedTo" Type="varchar" Mode="In" />
+    <Parameter Name="aadhar" Type="varchar" Mode="In" />
+    <Parameter Name="reportedon" Type="datetime" Mode="In" />
+    <Parameter Name="problemtype" Type="varchar" Mode="In" />
+    <Parameter Name="createdBy" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="usp_generateUserID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="username" Type="varchar" Mode="In" />
+    <Parameter Name="contactno" Type="varchar" Mode="In" />
+    <Parameter Name="role" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="usp_RegisterUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="EmployeeName" Type="varchar" Mode="In" />
+    <Parameter Name="userid" Type="varchar" Mode="In" />
+    <Parameter Name="role" Type="varchar" Mode="In" />
+    <Parameter Name="contactno" Type="varchar" Mode="In" />
+    <Parameter Name="password" Type="varchar" Mode="In" />
+    <Parameter Name="createddate" Type="datetime" Mode="In" />
+    <Parameter Name="createdby" Type="varchar" Mode="In" />
+  </Function>
+  <EntityContainer Name="GuptaAgroModelStoreContainer">
+    <EntitySet Name="tbl_beneficiary" EntityType="Self.tbl_beneficiary" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_distributions" EntityType="Self.tbl_distributions" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_employee" EntityType="Self.tbl_employee" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_InventoryStock" EntityType="Self.tbl_InventoryStock" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_Items" EntityType="Self.tbl_Items" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_itemstock" EntityType="Self.tbl_itemstock" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_OandM" EntityType="Self.tbl_OandM" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_StockRequest" EntityType="Self.tbl_StockRequest" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_roles" EntityType="Self.tbl_roles" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [tbl_roles].[roleid] AS [roleid], 
+    [tbl_roles].[role] AS [role], 
+    [tbl_roles].[createdby] AS [createdby], 
+    [tbl_roles].[createddate] AS [createddate], 
+    [tbl_roles].[modifiedby] AS [modifiedby], 
+    [tbl_roles].[modifieddate] AS [modifieddate]
+    FROM [dbo].[tbl_roles] AS [tbl_roles]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_BeneficiaryID" Association="Self.FK_BeneficiaryID">
+      <End Role="tbl_beneficiary" EntitySet="tbl_beneficiary" />
+      <End Role="tbl_OandM" EntitySet="tbl_OandM" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
